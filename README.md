@@ -1,4 +1,4 @@
-PetOfTheDay
-===========
+Pet Of The Day
+==============
 
-POC project for API testing
+A proof of concept code to demonstrate the power of RESTful API based solutions
