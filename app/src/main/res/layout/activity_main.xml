@@ -59,7 +59,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText"
         android:text="http://localhost:8080/api"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:inputType="textUri" />
 
 
 </RelativeLayout>
