@@ -16,7 +16,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.picasso.Picasso;
 
 
-public class Main2 extends Activity {
+public class Main extends Activity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
