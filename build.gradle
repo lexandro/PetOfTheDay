@@ -11,6 +11,9 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
 
 allprojects {
     repositories {
