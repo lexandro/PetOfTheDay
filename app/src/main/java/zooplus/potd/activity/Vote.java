@@ -1,6 +1,7 @@
-package potd.zooplus.com.petoftheday;
+package zooplus.potd.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,8 +16,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.picasso.Picasso;
 
+import potd.zooplus.com.petoftheday.R;
 
-public class Main extends Activity {
+
+public class Vote extends Activity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -24,19 +27,31 @@ public class Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_vote);
         ImageView imageView = (ImageView) findViewById(R.id.petPicture);
         Picasso.with(getApplicationContext()).load("http://www.tarotfinal.com/wp-content/uploads/2013/03/dudas.jpg").into(imageView);
 
         if (checkPlayServices()) {
-            Toast.makeText(getApplicationContext(), "dada", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "dada", Toast.LENGTH_LONG).show();
         }
     }
 
     public void likeClicked(View view) {
+        Context context = getApplicationContext();
+        CharSequence text = "Like!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void dislikeClicked(View view) {
+        Context context = getApplicationContext();
+        CharSequence text = "Dislike!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void takePhoto(View view) {
@@ -70,17 +85,17 @@ public class Main extends Activity {
     }
 
     private boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            } else {
-                Log.i("POTD", "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
+//        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+//        if (resultCode != ConnectionResult.SUCCESS) {
+//            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+//                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+//                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+//            } else {
+//                Log.i("POTD", "This device is not supported.");
+//                finish();
+//            }
+//            return false;
+//        }
         return true;
     }
 

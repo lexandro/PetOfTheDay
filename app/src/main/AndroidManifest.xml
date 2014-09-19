@@ -6,22 +6,21 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
     <uses-feature android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-feature android:name="com.google.android.c2dm.permission.RECEIVE" />
-
 
     <application
+        android:name="zooplus.potd.TheApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main"
+            android:name="zooplus.potd.activity.Main"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="zooplus.potd.activity.Vote"
+            android:label="@string/title_activity_picture_gallery"></activity>
     </application>
 
 </manifest>
