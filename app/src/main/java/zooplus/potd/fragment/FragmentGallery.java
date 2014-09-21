@@ -3,6 +3,7 @@ package zooplus.potd.fragment;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -46,13 +47,17 @@ public class FragmentGallery extends Fragment {
         gridview.setAdapter(myImagesAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 ActionBar actionBar = getActivity().getActionBar();
                 actionBar.setDisplayShowTitleEnabled(true);
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 actionBar.setTitle("Pos: " + position + " Id: " + v.getId());
+                //
+                FragmentManager fragmentManager = getFragmentManager();
+                Fragment voteFragment = FragmentVote.newInstance(v.getId());
+                fragmentManager.beginTransaction().replace(R.id.container, voteFragment).commit();
+
 
             }
         });

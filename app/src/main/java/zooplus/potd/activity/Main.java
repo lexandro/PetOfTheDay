@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import potd.zooplus.com.petoftheday.R;
 import zooplus.potd.fragment.FragmentGallery;
+import zooplus.potd.fragment.FragmentUpload;
 import zooplus.potd.fragment.FragmentVote;
 import zooplus.potd.fragment.NavigationDrawer;
 
@@ -22,7 +23,8 @@ import zooplus.potd.fragment.NavigationDrawer;
 public class Main extends Activity
         implements NavigationDrawer.NavigationDrawerCallbacks,
         FragmentGallery.OnFragmentInteractionListener,
-        FragmentVote.OnFragmentInteractionListener {
+        FragmentVote.OnFragmentInteractionListener,
+        FragmentUpload.OnFragmentInteractionListener {
 
     private NavigationDrawer mNavigationDrawerFragment;
 

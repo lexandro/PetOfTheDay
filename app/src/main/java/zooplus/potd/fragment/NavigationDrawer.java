@@ -183,39 +183,25 @@ public class NavigationDrawer extends Fragment {
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
-        //
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction tx = null;
         switch (position) {
             case 0:
                 Fragment galleryFragment = new FragmentGallery();
-//        Bundle args = new Bundle();
-//        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-//        fragment.setArguments(args);
-
                 tx = fragmentManager.beginTransaction();
                 tx.replace(R.id.container, galleryFragment);
                 tx.commit();
                 break;
 
             case 1:
-                Fragment voteFragment = new FragmentVote();
-//        Bundle args = new Bundle();
-//        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-//        fragment.setArguments(args);
+                Fragment uploadFragment = FragmentUpload.newInstance(null, null);
                 tx = fragmentManager.beginTransaction();
-                tx.replace(R.id.container, voteFragment);
+                tx.replace(R.id.container, uploadFragment);
                 tx.commit();
                 break;
 
         }
-
-
-        // update selected item and title, then close the drawer
-//        setTitle(mPlanetTitles[position]);
-//        mDrawerLayout.closeDrawer(mDrawerList);
-        //
 
     }
 
