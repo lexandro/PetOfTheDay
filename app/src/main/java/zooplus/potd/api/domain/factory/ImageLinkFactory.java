@@ -4,7 +4,7 @@ import com.android.volley.Response;
 
 import java.util.List;
 
-import zooplus.potd.api.domain.ImageLink;
+import zooplus.potd.api.domain.ImageURL;
 
 public class ImageLinkFactory {
 
@@ -25,11 +25,11 @@ public class ImageLinkFactory {
 
     }
 
-    public static List<ImageLink> getImagesfromJson(String json) {
+    public static List<ImageURL> getImagesfromJson(String json) {
         return null;
     }
 
-    public static ImageLink getImagefromJson(String json) {
+    public static ImageURL getImagefromJson(String json) {
         return null;
     }
 

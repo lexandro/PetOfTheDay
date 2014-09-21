@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:support-v4:20.0.0'
     provided "org.projectlombok:lombok:1.14.8"
     compile 'com.mcxiaoke.volley:library:1.0.6'
+
 }

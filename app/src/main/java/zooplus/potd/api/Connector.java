@@ -14,11 +14,11 @@ import zooplus.potd.TheApplication;
 public class Connector {
 
 
-    private String endPoint;
+    private static String endPoint;
 
 
-    public Connector(String endPoint) {
-        this.endPoint = endPoint;
+    public Connector(String newEndPoint) {
+        endPoint = newEndPoint;
     }
 
     public void call(String link, Response.Listener<String> callbackListener) {

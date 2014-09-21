@@ -2,7 +2,7 @@ package zooplus.potd.api;
 
 import java.util.List;
 
-import zooplus.potd.api.domain.ImageLink;
+import zooplus.potd.api.domain.ImageURL;
 import zooplus.potd.api.domain.factory.ImageLinkFactory;
 
 public class ApiClient {
@@ -13,7 +13,7 @@ public class ApiClient {
         this.connector = connector;
     }
 
-    public List<ImageLink> getImages() {
+    public List<ImageURL> getImages() {
 //        final List<ImageLink>[] result = new List<ImageLink>[1];
 
 

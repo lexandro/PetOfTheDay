@@ -1,5 +1,6 @@
 package zooplus.potd.fragment;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
@@ -7,8 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import potd.zooplus.com.petoftheday.R;
 import zooplus.potd.adapter.ImagesAdapter;
@@ -43,9 +44,23 @@ public class FragmentGallery extends Fragment {
         GridView gridview = (GridView) getActivity().findViewById(R.id.imagesGridView);
         myImagesAdapter = new ImagesAdapter(getActivity());
         gridview.setAdapter(myImagesAdapter);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+                ActionBar actionBar = getActivity().getActionBar();
+                actionBar.setDisplayShowTitleEnabled(true);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                actionBar.setTitle("Pos: " + position + " Id: " + v.getId());
+
+            }
+        });
+
         //
         bitmapsLoaderTask = new BitmapsLoaderTask(myImagesAdapter);
         bitmapsLoaderTask.execute();
+
     }
 
     @Override
