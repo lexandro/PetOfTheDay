@@ -6,13 +6,13 @@ A proof of concept code to demonstrate the capabilities of RESTful API based arc
 The purpose of this application is to implement a Pet Of The Day demo app with the following functions:
 
 TODO:
-- update Gallery layout (showing items from top-down
+- upload taken picture via RESTful service with user name
+- get picture for upload from the existing gallery
 - refresh of Gallery with swipe down
 - submit vote with user name
-- pressing back on Vote fragment going back to Gallery
 - get push notification about the actual picture to see other users' votes
-- upload stored picture via RESTful service with user name
-- take a picture with camera and store
+
+
 
 DONE:
 - setup basic layout (main, navigation drawer, gallery, upload, vote)
@@ -23,3 +23,6 @@ DONE:
 - added vote to Navigation Drawer with picking random image
 - Vote fragment submitting like/dislike
 - Vote invoked from Navigation Drawer loading a random picture
+- update Gallery layout (showing items from top-down)
+- pressing back on Vote fragment going back to Gallery
+- take a picture with camera 

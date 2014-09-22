@@ -16,6 +16,7 @@
 
     <string-array name="endpointList">
         <item>http://10.0.2.2:8080</item>
+        <item>http://192.168.100.10:8080</item>
         <item>http://potd.istmein.de:8080</item>
         <item>http://zooplussalt-test.apigee.net</item>
     </string-array>
