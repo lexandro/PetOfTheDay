@@ -44,26 +44,16 @@ public class Connector {
                 paramString = paramStringBuilder.toString().replace(" ", "%20");
             }
             //
-            String urlString = endPoint + myUrl;
+            String urlString = myUrl;
             if (paramString != null) {
                 urlString += paramString;
             }
-            URL url = new URL(urlString);
             //
-            HttpURLConnection conn = null;
+            HttpURLConnection conn = createConnection(urlString, "POST");
 
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
             // Starts the query
             conn.connect();
-            int response = conn.getResponseCode();
             is = conn.getInputStream();
-
             // Convert the InputStream into a string
             String contentAsString = readIt(is);
             return contentAsString;
@@ -88,19 +78,9 @@ public class Connector {
     public String get(String myUrl) {
         InputStream is = null;
         try {
-            URL url = new URL(endPoint + myUrl);
-            HttpURLConnection conn = null;
-
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
-            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
+            HttpURLConnection conn = createConnection(myUrl, "GET");
             // Starts the query
             conn.connect();
-            int response = conn.getResponseCode();
             is = conn.getInputStream();
 
             // Convert the InputStream into a string
@@ -123,12 +103,24 @@ public class Connector {
         }
     }
 
+    private HttpURLConnection createConnection(String urlString, String requestMethod) throws IOException {
+        URL url = new URL(endPoint + urlString);
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(requestMethod);
+        conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+        conn.setReadTimeout(10000 /* milliseconds */);
+        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setDoInput(true);
+        return conn;
+    }
+
     // Reads an InputStream and converts it to a String.
     public String readIt(InputStream stream) throws IOException, UnsupportedEncodingException {
         Reader reader = null;
         reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
         StringBuilder result = new StringBuilder();
-        int len = 500;
+        int len = 50000;
         char[] buffer = new char[len];
         //
         int size = reader.read(buffer);

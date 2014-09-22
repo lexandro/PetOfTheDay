@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
+import potd.zooplus.com.petoftheday.R;
 import zooplus.potd.Config;
 import zooplus.potd.adapter.ImagesAdapter;
 import zooplus.potd.domain.ImageURL;
@@ -43,6 +45,9 @@ public class BitmapsLoaderTask extends AsyncTask<Void, ImageView, Void> {
         //
         for (ImageURL imageURL : imageUrls) {
             imageView = new ImageView(context);
+            int size = (int) context.getResources().getDimension(R.dimen.image_size);
+            imageView.setLayoutParams(new GridView.LayoutParams(size, size));
+            //
             try {
                 URL url = new URL(imageURL.getUrl());
                 Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());

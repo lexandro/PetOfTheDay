@@ -75,16 +75,21 @@ public class FragmentVote extends Fragment {
 
     private void init(int imageId) {
         FragmentVote.imageId = imageId;
-        ImageView imageView = (ImageView) getActivity().findViewById(R.id.voteImageView);
-        Picasso.with(getActivity().getApplicationContext()).load(Config.getEndpoint() + "/pets/" + imageId + "/image").into(imageView);
+        Activity activity = getActivity();
+        if (activity != null) {
+            ImageView imageView = (ImageView) activity.findViewById(R.id.voteImageView);
+            Picasso.with(activity.getApplicationContext()).load(Config.getEndpoint() + "/pets/" + imageId + "/image").into(imageView);
+        }
     }
 
     private void animatedInit(int imageId) {
         Main main = (Main) getActivity();
-        main.onNavigationDrawerItemSelected(1);
-        FragmentManager fragmentManager = getFragmentManager();
-        Fragment voteFragment = FragmentVote.newInstance(imageId);
-        fragmentManager.beginTransaction().replace(R.id.container, voteFragment).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).commit();
+        if (main != null) {
+            main.onNavigationDrawerItemSelected(1);
+            FragmentManager fragmentManager = getFragmentManager();
+            Fragment voteFragment = FragmentVote.newInstance(imageId);
+            fragmentManager.beginTransaction().replace(R.id.container, voteFragment).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).commit();
+        }
         init(imageId);
     }
 
