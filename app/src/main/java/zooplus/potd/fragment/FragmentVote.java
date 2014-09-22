@@ -3,6 +3,7 @@ package zooplus.potd.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.squareup.picasso.Picasso;
 
 import potd.zooplus.com.petoftheday.R;
 import zooplus.potd.Config;
-import zooplus.potd.domain.ImageInfo;
 import zooplus.potd.domain.ImageURL;
 import zooplus.potd.service.PetService;
 
@@ -73,7 +73,6 @@ public class FragmentVote extends Fragment {
     private void init(int imageId) {
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.voteImageView);
         Picasso.with(getActivity().getApplicationContext()).load(Config.getEndpoint() + "/pets/" + imageId + "/image").into(imageView);
-        ImageInfo imageInfo = petService.getImageInfo(imageId);
 
     }
 
@@ -84,25 +83,17 @@ public class FragmentVote extends Fragment {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageURL result = petService.like(imageId);
-                init(result.getId());
+                (new VoteAsyncTask()).executeLike();
+
 
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageURL result = petService.disLike(imageId);
-                init(result.getId());
+                (new VoteAsyncTask()).executeDislike();
             }
         });
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-
     }
 
     @Override
@@ -123,6 +114,38 @@ public class FragmentVote extends Fragment {
 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private class VoteAsyncTask extends AsyncTask<Integer, Void, Integer> {
+
+        private boolean like;
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            ImageURL result = null;
+            if (like) {
+                result = petService.like(imageId);
+            } else {
+                result = petService.disLike(imageId);
+            }
+            return result.getId();
+        }
+
+        @Override
+        protected void onPostExecute(Integer imageId) {
+            super.onPostExecute(imageId);
+            init(imageId);
+        }
+
+        public void executeLike() {
+            like = true;
+            execute();
+        }
+
+        public void executeDislike() {
+            like = false;
+            execute();
+        }
     }
 
 }

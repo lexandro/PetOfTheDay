@@ -1,9 +1,7 @@
 package zooplus.potd.api;
 
-import java.util.List;
-
-import zooplus.potd.domain.ImageURL;
-import zooplus.potd.domain.factory.ImageLinkFactory;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ApiClient {
 
@@ -13,13 +11,22 @@ public class ApiClient {
         this.connector = connector;
     }
 
-    public List<ImageURL> getImages() {
-//        final List<ImageLink>[] result = new List<ImageLink>[1];
 
+    public JSONObject get(String urlString) {
+        String resultString = connector.get(urlString);
+        //
+        JSONObject result = null;
+        try {
+            result = new JSONObject(resultString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        connector.call("/pets/images", ImageLinkFactory.getResponseListener());
+        return result;
+    }
 
+    public void post(String message) {
+        System.out.println("dada");
 
-        return null;
     }
 }

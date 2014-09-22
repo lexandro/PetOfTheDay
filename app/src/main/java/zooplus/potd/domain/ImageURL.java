@@ -6,8 +6,13 @@ import lombok.Data;
 @Data
 public class ImageURL implements Comparable {
 
-    int id;
-    String url;
+    private int id;
+    private String url;
+
+    public ImageURL(int id, String url) {
+        this.id = id;
+        this.url = url;
+    }
 
 
     @Override

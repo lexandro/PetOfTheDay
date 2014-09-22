@@ -1,55 +1,43 @@
 package zooplus.potd.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import zooplus.potd.domain.ImageInfo;
+import zooplus.potd.Config;
+import zooplus.potd.api.PetRepository;
 import zooplus.potd.domain.ImageURL;
 
 public class PetService {
 
+    private PetRepository petRepository;
+    private PushService pushService;
+
+    public PetService(PetRepository petRepository, PushService pushService) {
+        init(petRepository, pushService);
+    }
+
     public List<ImageURL> getAllUrl() {
-        List<ImageURL> allUrl = new ArrayList<>();
-        ImageURL imageURL = new ImageURL();
-        imageURL.setId(1);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/1/image");
-        allUrl.add(imageURL);
+        List<ImageURL> allImages = petRepository.getAllImages();
         //
-        imageURL = new ImageURL();
-        imageURL.setId(2);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/2/image");
-        allUrl.add(imageURL);
-        //
-        imageURL = new ImageURL();
-        imageURL.setId(3);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/3/image");
-        allUrl.add(imageURL);
-        //
-        return allUrl;
+        return allImages;
     }
 
     public ImageURL like(int imageId) {
-        ImageURL imageURL = new ImageURL();
-        imageURL.setId(3);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/3/image");
-        return imageURL;
+        petRepository.submitLikeVote(imageId);
+        pushService.push(Config.getUserName() + " likes your picture");
+        return getRandom();
     }
 
     public ImageURL disLike(int imageId) {
-        ImageURL imageURL = new ImageURL();
-        imageURL.setId(2);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/3/image");
-        return imageURL;
+        petRepository.submitDislikeVote(imageId);
+        return getRandom();
     }
 
     public ImageURL getRandom() {
-        ImageURL imageURL = new ImageURL();
-        imageURL.setId(1);
-        imageURL.setUrl("http://10.0.2.2:8080/pets/1/image");
-        return imageURL;
+        return petRepository.getRandom();
     }
 
-    public ImageInfo getImageInfo(int imageId) {
-        return null;
+    public void init(PetRepository petRepository, PushService pushService) {
+        this.petRepository = petRepository;
+        this.pushService = pushService;
     }
 }
