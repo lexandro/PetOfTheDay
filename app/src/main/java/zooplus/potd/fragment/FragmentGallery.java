@@ -55,7 +55,7 @@ public class FragmentGallery extends Fragment {
                 //
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment voteFragment = FragmentVote.newInstance(v.getId());
-                fragmentManager.beginTransaction().replace(R.id.container, voteFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, voteFragment).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).commit();
             }
         });
 

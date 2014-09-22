@@ -2,6 +2,7 @@ package zooplus.potd.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import potd.zooplus.com.petoftheday.R;
 import zooplus.potd.Config;
+import zooplus.potd.activity.Main;
 import zooplus.potd.domain.ImageURL;
 import zooplus.potd.service.PetService;
 
@@ -33,15 +35,11 @@ public class FragmentVote extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public static FragmentVote newInstance(Integer imageId) {
-        FragmentVote fragment = newInstance();
+        FragmentVote fragment = new FragmentVote();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, String.valueOf(imageId));
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static FragmentVote newInstance() {
-        return new FragmentVote();
     }
 
     public FragmentVote() {
@@ -79,7 +77,15 @@ public class FragmentVote extends Fragment {
         FragmentVote.imageId = imageId;
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.voteImageView);
         Picasso.with(getActivity().getApplicationContext()).load(Config.getEndpoint() + "/pets/" + imageId + "/image").into(imageView);
+    }
 
+    private void animatedInit(int imageId) {
+        Main main = (Main) getActivity();
+        main.onNavigationDrawerItemSelected(1);
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment voteFragment = FragmentVote.newInstance(imageId);
+        fragmentManager.beginTransaction().replace(R.id.container, voteFragment).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).commit();
+        init(imageId);
     }
 
     private void configureButtonListeners() {
@@ -90,8 +96,7 @@ public class FragmentVote extends Fragment {
             @Override
             public void onClick(View v) {
                 (new VoteAsyncTask()).executeInBackground(LIKE);
-
-
+                FragmentManager fragmentManager = getFragmentManager();
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +147,8 @@ public class FragmentVote extends Fragment {
         @Override
         protected void onPostExecute(Integer imageId) {
             super.onPostExecute(imageId);
-            init(imageId);
+            animatedInit(imageId);
+
         }
 
         public void executeInBackground(VoteOperation operation) {

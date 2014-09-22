@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +19,7 @@ import zooplus.potd.fragment.FragmentGallery;
 import zooplus.potd.fragment.FragmentUpload;
 import zooplus.potd.fragment.FragmentVote;
 import zooplus.potd.fragment.NavigationDrawer;
+import zooplus.potd.fragment.SettingsFragment;
 
 
 public class Main extends Activity
@@ -43,7 +45,11 @@ public class Main extends Activity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(position + 1)).commit();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .setCustomAnimations(R.animator.slide_in_left, R.animator.slide_in_left)
+                .commit();
     }
 
     public void onSectionAttached(int number) {
@@ -82,6 +88,13 @@ public class Main extends Activity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction tx = fragmentManager.beginTransaction();
+            tx.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.fade_in, R.animator.fade_out);
+            Fragment fragment = new SettingsFragment();
+            tx.replace(R.id.container, fragment);
+            tx.addToBackStack(null);
+            tx.commit();
             return true;
         }
         return super.onOptionsItemSelected(item);

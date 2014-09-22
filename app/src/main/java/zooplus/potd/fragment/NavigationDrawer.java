@@ -183,31 +183,29 @@ public class NavigationDrawer extends Fragment {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction tx = null;
         switch (position) {
             case 0:
                 Fragment galleryFragment = new FragmentGallery();
-                tx = fragmentManager.beginTransaction();
-                tx.replace(R.id.container, galleryFragment);
-                tx.commit();
+                commitNewFragment(galleryFragment);
                 break;
-
             case 1:
-                Fragment uploadFragment = FragmentUpload.newInstance(null, null);
-                tx = fragmentManager.beginTransaction();
-                tx.replace(R.id.container, uploadFragment);
-                tx.commit();
+                Fragment uploadFragment = new FragmentUpload();
+                commitNewFragment(uploadFragment);
                 break;
             case 2:
-                Fragment voteFragment = FragmentVote.newInstance();
-                tx = fragmentManager.beginTransaction();
-                tx.replace(R.id.container, voteFragment);
-                tx.commit();
+                Fragment voteFragment = new FragmentVote();
+                commitNewFragment(voteFragment);
                 break;
-
         }
 
+    }
+
+    private void commitNewFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction tx = fragmentManager.beginTransaction();
+        tx.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.fade_in, R.animator.fade_out);
+        tx.replace(R.id.container, fragment);
+        tx.commit();
     }
 
     @Override
