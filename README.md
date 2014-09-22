@@ -8,11 +8,8 @@ The purpose of this application is to implement a Pet Of The Day demo app with t
 TODO:
 - upload taken picture via RESTful service with user name
 - get picture for upload from the existing gallery
-- refresh of Gallery with swipe down
 - submit vote with user name
 - get push notification about the actual picture to see other users' votes
-
-
 
 DONE:
 - setup basic layout (main, navigation drawer, gallery, upload, vote)
@@ -26,3 +23,5 @@ DONE:
 - update Gallery layout (showing items from top-down)
 - pressing back on Vote fragment going back to Gallery
 - take a picture with camera 
+- refresh of Gallery with swipe down
+- send push notification when like voted
