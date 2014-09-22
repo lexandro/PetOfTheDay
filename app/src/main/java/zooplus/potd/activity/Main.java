@@ -31,6 +31,7 @@ public class Main extends Activity
     private NavigationDrawer mNavigationDrawerFragment;
 
     private CharSequence mTitle;
+    private CharSequence oldTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +92,18 @@ public class Main extends Activity
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction tx = fragmentManager.beginTransaction();
             tx.setCustomAnimations(R.animator.fade_in, R.animator.fade_out, R.animator.fade_in, R.animator.fade_out);
-            Fragment fragment = new SettingsFragment();
+            SettingsFragment fragment = new SettingsFragment();
             tx.replace(R.id.container, fragment);
             tx.addToBackStack(null);
             tx.commit();
+            mTitle = getString(R.string.title_settings);
+            ActionBar actionBar = getActionBar();
+            actionBar.setTitle(mTitle);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

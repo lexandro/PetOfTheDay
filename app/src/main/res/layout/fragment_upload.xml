@@ -12,15 +12,16 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_above="@+id/imageButton" />
+        android:layout_above="@+id/cameraButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/cameraButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/ic_device_access_camera"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:focusableInTouchMode="false" />
 
 </RelativeLayout>

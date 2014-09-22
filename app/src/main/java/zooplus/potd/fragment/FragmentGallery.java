@@ -58,7 +58,8 @@ public class FragmentGallery extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.container, voteFragment).setCustomAnimations(R.animator.fade_in, R.animator.fade_out).commit();
             }
         });
-
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setTitle(getActivity().getString(R.string.title_gallery));
         //
         bitmapsLoaderTask = new BitmapsLoaderTask(myImagesAdapter);
         bitmapsLoaderTask.execute();

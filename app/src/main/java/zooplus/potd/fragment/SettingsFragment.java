@@ -1,6 +1,7 @@
 package zooplus.potd.fragment;
 
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,8 +16,8 @@ import zooplus.potd.Config;
 
 public class SettingsFragment extends Fragment {
 
-
     public SettingsFragment() {
+
     }
 
 
@@ -26,12 +27,31 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setTitle(getString(R.string.title_settings));
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         setupAutoComplete();
 
         Button okButton = (Button) getActivity().findViewById(R.id.btnSettingsOk);
         okButton.setOnClickListener(new OkButtonListener());
+
+    }
+
+    private class OkButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.autoCompleteEndpoint);
+            String endPoint = textView.getText().toString();
+            Config.init(endPoint);
+            getFragmentManager().popBackStackImmediate();
+        }
     }
 
     private void setupAutoComplete() {
@@ -42,13 +62,5 @@ public class SettingsFragment extends Fragment {
         textView.setAdapter(adapter);
     }
 
-    private class OkButtonListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.autoCompleteEndpoint);
-            String endPoint = textView.getText().toString();
-            Config.init(endPoint);
-            getFragmentManager().popBackStackImmediate();
-        }
-    }
+
 }

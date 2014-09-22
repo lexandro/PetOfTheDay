@@ -1,9 +1,9 @@
 package zooplus.potd.fragment;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -65,6 +65,13 @@ public class FragmentVote extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setTitle(getActivity().getString(R.string.title_vote));
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         if (imageId != null) {
@@ -101,7 +108,6 @@ public class FragmentVote extends Fragment {
             @Override
             public void onClick(View v) {
                 (new VoteAsyncTask()).executeInBackground(LIKE);
-                FragmentManager fragmentManager = getFragmentManager();
             }
         });
         dislikeButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +135,6 @@ public class FragmentVote extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(Uri uri);
     }
 
     private class VoteAsyncTask extends AsyncTask<Integer, Void, Integer> {
@@ -146,14 +151,15 @@ public class FragmentVote extends Fragment {
             } else if (RANDOM.equals(operation)) {
                 result = petService.getRandom();
             }
-            return result.getId();
+            return result != null ? result.getId() : null;
         }
 
         @Override
         protected void onPostExecute(Integer imageId) {
             super.onPostExecute(imageId);
-            animatedInit(imageId);
-
+            if (imageId != null) {
+                animatedInit(imageId);
+            }
         }
 
         public void executeInBackground(VoteOperation operation) {
