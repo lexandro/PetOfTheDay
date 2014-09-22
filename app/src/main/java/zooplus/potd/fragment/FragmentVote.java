@@ -18,13 +18,17 @@ import zooplus.potd.Config;
 import zooplus.potd.domain.ImageURL;
 import zooplus.potd.service.PetService;
 
+import static zooplus.potd.fragment.VoteOperation.DISLIKE;
+import static zooplus.potd.fragment.VoteOperation.LIKE;
+import static zooplus.potd.fragment.VoteOperation.RANDOM;
+
 public class FragmentVote extends Fragment {
 
     private static final String ARG_PARAM1 = "imageId";
 
     private PetService petService;
 
-    private int imageId;
+    private static Integer imageId = null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -51,8 +55,8 @@ public class FragmentVote extends Fragment {
         //
         if (getArguments() != null) {
             imageId = Integer.valueOf(getArguments().getString(ARG_PARAM1));
-        } else {
-            imageId = petService.getRandom().getId();
+        } else if (imageId == null) {
+            (new VoteAsyncTask()).executeInBackground(RANDOM);
         }
 
     }
@@ -65,11 +69,14 @@ public class FragmentVote extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        init(imageId);
+        if (imageId != null) {
+            init(imageId);
+        }
         configureButtonListeners();
     }
 
     private void init(int imageId) {
+        FragmentVote.imageId = imageId;
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.voteImageView);
         Picasso.with(getActivity().getApplicationContext()).load(Config.getEndpoint() + "/pets/" + imageId + "/image").into(imageView);
 
@@ -82,7 +89,7 @@ public class FragmentVote extends Fragment {
         likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (new VoteAsyncTask()).executeLike();
+                (new VoteAsyncTask()).executeInBackground(LIKE);
 
 
             }
@@ -90,7 +97,7 @@ public class FragmentVote extends Fragment {
         dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                (new VoteAsyncTask()).executeDislike();
+                (new VoteAsyncTask()).executeInBackground(DISLIKE);
             }
         });
     }
@@ -117,15 +124,17 @@ public class FragmentVote extends Fragment {
 
     private class VoteAsyncTask extends AsyncTask<Integer, Void, Integer> {
 
-        private boolean like;
+        private VoteOperation operation;
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            ImageURL result;
-            if (like) {
+            ImageURL result = null;
+            if (LIKE.equals(operation)) {
                 result = petService.like(imageId);
-            } else {
+            } else if (DISLIKE.equals(operation)) {
                 result = petService.disLike(imageId);
+            } else if (RANDOM.equals(operation)) {
+                result = petService.getRandom();
             }
             return result.getId();
         }
@@ -136,15 +145,11 @@ public class FragmentVote extends Fragment {
             init(imageId);
         }
 
-        public void executeLike() {
-            like = true;
+        public void executeInBackground(VoteOperation operation) {
+            this.operation = operation;
             execute();
         }
 
-        public void executeDislike() {
-            like = false;
-            execute();
-        }
     }
 
 }

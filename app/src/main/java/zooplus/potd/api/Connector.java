@@ -95,6 +95,7 @@ public class Connector {
 
             conn.setReadTimeout(10000 /* milliseconds */);
             conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             // Starts the query
