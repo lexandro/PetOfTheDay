@@ -1,10 +1,10 @@
-package zooplus.potd.api.domain.factory;
+package zooplus.potd.domain.factory;
 
 import com.android.volley.Response;
 
 import java.util.List;
 
-import zooplus.potd.api.domain.ImageURL;
+import zooplus.potd.domain.ImageURL;
 
 public class ImageLinkFactory {
 

@@ -1,4 +1,4 @@
-package zooplus.potd.api.domain;
+package zooplus.potd.domain;
 
 import lombok.Data;
 

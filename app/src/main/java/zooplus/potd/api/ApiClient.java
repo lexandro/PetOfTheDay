@@ -2,8 +2,8 @@ package zooplus.potd.api;
 
 import java.util.List;
 
-import zooplus.potd.api.domain.ImageURL;
-import zooplus.potd.api.domain.factory.ImageLinkFactory;
+import zooplus.potd.domain.ImageURL;
+import zooplus.potd.domain.factory.ImageLinkFactory;
 
 public class ApiClient {
 

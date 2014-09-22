@@ -52,13 +52,10 @@ public class FragmentGallery extends Fragment {
                 ActionBar actionBar = getActivity().getActionBar();
                 actionBar.setDisplayShowTitleEnabled(true);
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-                actionBar.setTitle("Pos: " + position + " Id: " + v.getId());
                 //
                 FragmentManager fragmentManager = getFragmentManager();
                 Fragment voteFragment = FragmentVote.newInstance(v.getId());
                 fragmentManager.beginTransaction().replace(R.id.container, voteFragment).commit();
-
-
             }
         });
 
@@ -74,8 +71,7 @@ public class FragmentGallery extends Fragment {
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 

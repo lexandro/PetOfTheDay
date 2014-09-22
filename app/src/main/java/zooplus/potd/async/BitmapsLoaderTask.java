@@ -10,13 +10,14 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
+import zooplus.potd.Config;
 import zooplus.potd.adapter.ImagesAdapter;
-import zooplus.potd.api.domain.ImageURL;
-import zooplus.potd.service.ImagesService;
+import zooplus.potd.domain.ImageURL;
+import zooplus.potd.service.PetService;
 
 public class BitmapsLoaderTask extends AsyncTask<Void, ImageView, Void> {
     private ImagesAdapter myTaskAdapter;
-    private ImagesService imagesService;
+    private PetService petService;
 
     public BitmapsLoaderTask(ImagesAdapter adapter) {
         myTaskAdapter = adapter;
@@ -26,6 +27,7 @@ public class BitmapsLoaderTask extends AsyncTask<Void, ImageView, Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         myTaskAdapter.clear();
+        petService = Config.getPetService();
     }
 
     @Override
@@ -35,8 +37,7 @@ public class BitmapsLoaderTask extends AsyncTask<Void, ImageView, Void> {
         ImageView imageView = null;
         myTaskAdapter.clear();
         //
-        imagesService = new ImagesService();
-        List<ImageURL> imageUrls = imagesService.getAllUrl();
+        List<ImageURL> imageUrls = petService.getAllUrl();
 
         Collections.sort(imageUrls);
         //
@@ -47,7 +48,6 @@ public class BitmapsLoaderTask extends AsyncTask<Void, ImageView, Void> {
                 Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 imageView.setImageBitmap(bmp);
                 imageView.setId(imageURL.getId());
-//            Picasso.with(myTaskAdapter.getMContext()).load("http://10.0.2.2:8080/pets/1/image").into(imageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }

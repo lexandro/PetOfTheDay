@@ -72,8 +72,7 @@ public class NavigationDrawer extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +88,7 @@ public class NavigationDrawer extends Fragment {
                 new String[]{
                         getString(R.string.title_gallery),
                         getString(R.string.title_upload),
+                        getString(R.string.title_vote),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -146,8 +146,7 @@ public class NavigationDrawer extends Fragment {
                     // The user manually opened the drawer; store this flag to prevent auto-showing
                     // the navigation drawer automatically in the future.
                     mUserLearnedDrawer = true;
-                    SharedPreferences sp = PreferenceManager
-                            .getDefaultSharedPreferences(getActivity());
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
@@ -198,6 +197,12 @@ public class NavigationDrawer extends Fragment {
                 Fragment uploadFragment = FragmentUpload.newInstance(null, null);
                 tx = fragmentManager.beginTransaction();
                 tx.replace(R.id.container, uploadFragment);
+                tx.commit();
+                break;
+            case 2:
+                Fragment voteFragment = FragmentVote.newInstance();
+                tx = fragmentManager.beginTransaction();
+                tx.replace(R.id.container, voteFragment);
                 tx.commit();
                 break;
 
