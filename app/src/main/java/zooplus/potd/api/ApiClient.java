@@ -3,6 +3,8 @@ package zooplus.potd.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 public class ApiClient {
 
     private Connector connector;
@@ -25,8 +27,13 @@ public class ApiClient {
         return result;
     }
 
-    public void post(String message) {
-        System.out.println("dada");
+    public void post(String urlString, Map<String, String> params) {
+        String resultString = connector.post(urlString, params);
+
+    }
+
+    public void post(String urlString) {
+        String resultString = connector.post(urlString);
 
     }
 }

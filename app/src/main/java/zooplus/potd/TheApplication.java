@@ -14,7 +14,8 @@ public class TheApplication extends Application {
         super.onCreate();
         TheApplication.context = getApplicationContext();
         Log.i("potd", "### Starting: " + (new Date()).toString());
-        Config.init("http://10.0.2.2:8080");
+        Config.init("http://zooplussalt-test.apigee.net");
+//        Config.init("http://10.0.2.2:8080");
     }
 
     public static Context getAppContext() {

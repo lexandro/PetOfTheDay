@@ -37,8 +37,7 @@ public class FragmentVote extends Fragment {
     }
 
     public static FragmentVote newInstance() {
-        FragmentVote fragment = new FragmentVote();
-        return fragment;
+        return new FragmentVote();
     }
 
     public FragmentVote() {
@@ -122,7 +121,7 @@ public class FragmentVote extends Fragment {
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            ImageURL result = null;
+            ImageURL result;
             if (like) {
                 result = petService.like(imageId);
             } else {

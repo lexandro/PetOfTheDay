@@ -1,5 +1,8 @@
 package zooplus.potd.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PushRepository {
     private ApiClient apiClient;
 
@@ -9,6 +12,9 @@ public class PushRepository {
     }
 
     public void push(String message) {
-        // TODO !!!
+        // IOS??? SUCH A BLASPHEMY!!! :)
+        Map<String, String> params = new HashMap<>();
+        params.put("message", message);
+        apiClient.post("/push/ios", params);
     }
 }
