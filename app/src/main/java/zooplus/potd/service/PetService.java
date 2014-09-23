@@ -23,7 +23,7 @@ public class PetService {
 
     public ImageURL like(int imageId) {
         petRepository.submitLikeVote(imageId);
-//        pushService.push("Dear customer, " + Config.getUserName() + " likes your picture. So we offer you a discount of 10 percent for your next order at Zooplus. Just use this coupon: 10PRFDEAFF");
+        pushService.push("Dear customer, " + Config.getUserName() + " likes your picture. So we offer you a discount of 10 percent for your next order at Zooplus. Just use this coupon: 10PRFDEAFF");
 
         return getRandom();
     }

@@ -20,6 +20,7 @@ public class PetRepository {
     }
 
     public List<ImageURL> getAllImages() {
+
         JSONObject resultJson = apiClient.get("/pets/images");
         List<ImageURL> allImages = null;
         try {

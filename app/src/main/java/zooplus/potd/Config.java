@@ -49,4 +49,9 @@ public class Config {
         return endpoint;
     }
 
+    public static String getUserName() {
+        return userName;
+    }
+
+
 }
